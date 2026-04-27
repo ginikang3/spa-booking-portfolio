@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+// 상단 import 부분만 확인해서 수정하세요 (다른 코드는 동일)
 import { 
   format, 
   addMonths, 
@@ -14,7 +15,7 @@ import {
   endOfWeek, 
   isSameMonth, 
   isSameDay, 
-  addDays, 
+  // addDays 제거됨
   eachDayOfInterval 
 } from "date-fns";
 import { es } from "date-fns/locale"; // 스페인어 로케일 추가

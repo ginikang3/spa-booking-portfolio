@@ -2,82 +2,79 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Phone, ShieldCheck } from "lucide-react";
+import { ShieldCheck, Users, CalendarCheck, ArrowUpRight } from "lucide-react";
 
-const MOCK_RESERVATIONS = [
-  { id: 1, name: "강수훈", phone: "010-XXXX-XXXX", date: "2026.04.28", time: "14:00", status: "Confirmado" },
-  { id: 2, name: "Amor", phone: "010-XXXX-XXXX", date: "2026.04.28", time: "15:30", status: "Confirmado" },
+const DATA = [
+  { id: 1, name: "강수훈", phone: "010-XXXX-XXXX", date: "2026-04-28", time: "14:00", type: "Full Body", status: "Confirmado" },
+  { id: 2, name: "Amor", phone: "010-XXXX-XXXX", date: "2026-04-28", time: "15:30", type: "Stone Massage", status: "Confirmado" },
 ];
 
 export default function InternalDashboard() {
   return (
-    <main className="min-h-screen bg-[#050505] text-white p-8">
-      <div className="max-w-5xl mx-auto">
-        <header className="flex justify-between items-end mb-12 border-b border-[#C5A358]/20 pb-6">
-          <div className="flex items-center gap-3">
-            <ShieldCheck className="text-[#C5A358]" size={28} />
-            <div>
-              <h1 className="text-xl font-bold tracking-tighter text-white uppercase">Acceso Interno</h1>
-              <p className="text-gray-500 text-[10px] uppercase tracking-[0.2em]">Solo Personal Autorizado</p>
+    <main className="min-h-screen bg-[#050505] text-[#e0e0e0] font-sans p-6 md:p-12">
+      <div className="max-w-6xl mx-auto">
+        <header className="flex justify-between items-start mb-16">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+              <span className="text-[10px] tracking-[0.3em] text-gray-500 font-bold uppercase">Acceso Interno</span>
             </div>
+            <h1 className="text-3xl font-light tracking-tighter italic">Internal <span className="text-[#C5A358]">Gateway</span></h1>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-gray-600 uppercase mb-1">Estado del Sistema</p>
-            <span className="flex items-center gap-2 text-sm text-[#2ECC71] font-bold">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2ECC71] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#2ECC71]"></span>
-              </span>
-              Operacional
-            </span>
+          <div className="flex gap-4">
+            <StatCard icon={<Users size={16}/>} label="Total" value="1,204" />
+            <StatCard icon={<CalendarCheck size={16}/>} label="Today" value="12" />
           </div>
         </header>
 
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="grid gap-4"
-        >
-          <h2 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 px-1">Próximas Reservas</h2>
-          
-          {MOCK_RESERVATIONS.map((res) => (
-            <div 
-              key={res.id} 
-              className="bg-[#111] border border-white/5 p-5 rounded-xl flex items-center justify-between hover:border-[#C5A358]/30 transition-all"
+        <section className="grid gap-6">
+          <h2 className="text-xs font-bold text-gray-600 uppercase tracking-widest px-2 mb-2">Próximas Reservas</h2>
+          {DATA.map((item) => (
+            <motion.div 
+              key={item.id}
+              whileHover={{ x: 10 }}
+              className="group bg-[#111] border border-white/5 p-6 rounded-2xl flex items-center justify-between hover:bg-[#151515] transition-all cursor-pointer"
             >
-              <div className="flex items-center gap-5">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#C5A358] to-[#8a6d2f] rounded-full flex items-center justify-center font-bold text-black text-xs">
-                  {res.name[0]}
+              <div className="flex items-center gap-6">
+                <div className="h-12 w-12 rounded-full bg-gradient-to-tr from-[#C5A358] to-black flex items-center justify-center border border-white/10 text-black font-black">
+                  {item.name[0]}
                 </div>
                 <div>
-                  <p className="font-medium">{res.name}</p>
-                  <p className="text-xs text-gray-500">{res.phone}</p>
-                </div>
-              </div>
-
-              <div className="hidden md:flex gap-12 items-center text-sm">
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-gray-600 uppercase font-bold mb-1">Fecha</span>
-                  <span>{res.date}</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-gray-600 uppercase font-bold mb-1">Hora</span>
-                  <span>{res.time}</span>
-                </div>
-                <div className="w-24 text-center">
-                  <span className="px-3 py-1 bg-[#2ECC71]/10 text-[#2ECC71] rounded text-[10px] font-bold uppercase tracking-wider">
-                    {res.status}
-                  </span>
+                  <h4 className="text-lg font-bold group-hover:text-[#C5A358] transition-colors">{item.name}</h4>
+                  <p className="text-sm text-gray-500">{item.phone}</p>
                 </div>
               </div>
               
-              <button className="text-gray-500 hover:text-[#C5A358] transition-colors text-xs underline underline-offset-4 uppercase tracking-tighter">
-                Detalles
-              </button>
-            </div>
+              <div className="hidden md:flex gap-12 text-center">
+                <div>
+                  <p className="text-[10px] text-gray-600 font-bold uppercase mb-1">Fecha / Hora</p>
+                  <p className="text-sm font-medium">{item.date} <span className="text-[#2ECC71] ml-2">{item.time}</span></p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-600 font-bold uppercase mb-1">Estado</p>
+                  <p className="text-sm font-medium text-[#2ECC71]">{item.status}</p>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-white/5 group-hover:bg-[#C5A358] group-hover:text-black transition-all">
+                <ArrowUpRight size={20} />
+              </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </section>
       </div>
     </main>
+  );
+}
+
+function StatCard({ icon, label, value }: { icon: React.ReactNode, label: string, value: string }) {
+  return (
+    <div className="bg-[#111] border border-white/5 p-4 rounded-xl min-w-[100px]">
+      <div className="flex items-center gap-2 text-gray-500 mb-1">
+        {icon}
+        <span className="text-[10px] font-bold uppercase">{label}</span>
+      </div>
+      <p className="text-xl font-bold">{value}</p>
+    </div>
   );
 }
