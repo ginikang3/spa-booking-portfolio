@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ShieldCheck, Users, CalendarCheck, ArrowUpRight } from "lucide-react";
+import { Users, CalendarCheck, ArrowUpRight } from "lucide-react";
 
 const DATA = [
   { id: 1, name: "강수훈", phone: "010-XXXX-XXXX", date: "2026-04-28", time: "14:00", type: "Full Body", status: "Confirmado" },
